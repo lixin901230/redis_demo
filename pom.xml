@@ -10,6 +10,7 @@
   
   <!-- 全局属性配置 -->
   <properties>
+  	<jdk.version>1.7</jdk.version>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   	<lib-path>src/main/webapp/WEB-INF/lib</lib-path>
   	
@@ -34,17 +35,6 @@
 	  <groupId>redis.clients</groupId>
 	  <artifactId>jedis</artifactId>
 	  <version>${redis.client.jedis.version}</version>
-	</dependency>
-	<dependency>
-	  <groupId>redis.clients</groupId>
-	  <artifactId>jedis</artifactId>
-	  <version>${redis.client.jedis.version}</version>
-	  <classifier>sources</classifier>
-	</dependency>
-	<dependency>
-	  <groupId>redis.clients</groupId>
-	  <artifactId>jedis</artifactId>
-	  <version>2.6.1</version>
 	</dependency>
 	
 	<!-- j2ee 依赖 -->
@@ -501,7 +491,6 @@
 	</testResources>
 	    
     <!-- 插件管理 -->
-    <pluginManagement>
     	<plugins>
     		
     		<!-- 编译 -->
@@ -510,11 +499,21 @@
 			  	<artifactId>maven-compiler-plugin</artifactId>
 			  	<version>3.0</version>
 			  	<configuration>
-			  		<source>1.7</source>
-			  		<target>1.7</target>
+			  		<source>${jdk.version}</source>
+			  		<target>${jdk.version}</target>
 			  		<encoding>${project.build.sourceEncoding}</encoding>
 			  	</configuration>
     		</plugin>
+    		
+    		<!-- 测试 -->
+    		<plugin>
+		    	<groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-surefire-plugin</artifactId>
+		        <version>2.17</version>  
+		        <configuration>
+		        	<skip>true</skip>
+		        </configuration>
+			</plugin>
     		
     		<!-- 资源 -->
     		<plugin>
@@ -574,7 +573,6 @@
     		</plugin>
     		
     	</plugins>
-    </pluginManagement>
   </build>
   
   <!-- 发布仓库配置 -->
