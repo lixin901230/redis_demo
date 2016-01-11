@@ -1,15 +1,17 @@
 package com.lx.redis.client.jedis.test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import redis.clients.jedis.Jedis;
+
+import com.lx.redis.client.jedis.utils.JedisPoolUtils;
 
 /**
  * 通过Jedis客户端API操作Redis 数据
@@ -32,6 +34,11 @@ public class JedisTest {
 	@Before
 	public void createJedis() {
 		jedis = new Jedis("127.0.0.1", 6379, 2000);
+	}
+	
+	@After
+	public void returnResource() {
+		JedisPoolUtils.returnResource(jedis);
 	}
 	
 	/**
